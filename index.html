@@ -1,15 +1,16 @@
 <html>
-<head> <meta charset="utf-8"/>
-</head>
-<body>
-	<canvas id="canvas" width="512" height="512"></canvas>
-	<div>
-		<input id="jsbtn" value="Run JS" type="button">
-		<input id="wasmbtn" value="Run WASM" type="button">
-	</div>
+	<head> 
+		<meta charset="utf-8"/>
+	</head>
+	<body>
+		<canvas id="canvas" width="512" height="512"></canvas>
+		<div>
+			<input id="js_button" value="Invert with JS" type="button">
+			<input id="wasm_button" value="Invert with WASM" type="button">
+		</div>
 
-<script src="imgfuncs.js"></script>
-<script src="imgprocessing.js"></script>
+		<script src="invert.js"></script>
+		<script src="drawer.js"></script>
 
-</body>
+	</body>
 </html>
