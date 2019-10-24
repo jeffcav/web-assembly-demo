@@ -54,12 +54,15 @@ function draw(img) {
   var data = imageData.data;
 
   var invert = function() {
+    var  begin = performance.now();
     for (var i = 0; i < data.length; i += 4) {
       data[i]     = 255 - data[i];     // red
       data[i + 1] = 255 - data[i + 1]; // green
       data[i + 2] = 255 - data[i + 2]; // blue
     }
     ctx.putImageData(imageData, 0, 0);
+    var end = performance.now();
+    console.log(end-begin);
   };
 
   var bytes = request.response;
@@ -71,10 +74,13 @@ function draw(img) {
         init_img.data.set(data);
 
 	var winvf = function() {
+		var begin = performance.now();
 		var p1 = results.instance.exports.winvert();
 		var d1 = new Uint8ClampedArray(importObject.env.memory.buffer, p1, canvas.width * canvas.height * 4);
                 var img1 = new ImageData(d1, canvas.width, canvas.height);
 		ctx.putImageData(img1, 0, 0);
+		var end = performance.now();
+		console.log(end-begin);
 	}
 
     var wasmbtn = document.getElementById('wasmbtn');
