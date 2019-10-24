@@ -72,30 +72,20 @@ function draw(img) {
     //d0 = data;
     //const img0 = new ImageData(d0, canvas.width, canvas.height);
 
-    var winv = function() {
-	var imageData2 = ctx.getImageData(0, 0, canvas.width, canvas.height);
-	 var data2 = imageData2.data;
-	//    var data3 = Uint32Array.from(data2);
-	//p1 = results.instance.exports.winvert(data3);
+	var winvf = function() {
+		init_pointer = results.instance.exports.getdata();
+		var init_data = new Uint8ClampedArray(importObject.env.memory.buffer, init_pointer, canvas.width * canvas.height * 4);
+		var init_img = new ImageData(init_data, canvas.width, canvas.height);
+		init_img.data.set(data);
 
-      var mse = parseInt(Math.floor((Math.random() + 100) * 1000));
-      var p1 = results.instance.exports.paint(mse);
-      var d1 = new Uint8ClampedArray(importObject.env.memory.buffer, p1, canvas.width * canvas.height * 4);
-      var img1 = new ImageData(d1, canvas.width, canvas.height);
-
-
-	for (var i=0; i < data2.length; i+=4) {
-		img1.data[i] = data[i] + img1.data[i];
-		img1.data[i+1] = data[i+1] + img1.data[i];
-		img1.data[i+2] = data[i+2] + img1.data[i];
+		var p1 = results.instance.exports.winvert();
+		var d1 = new Uint8ClampedArray(importObject.env.memory.buffer, p1, canvas.width * canvas.height * 4);
+                var img1 = new ImageData(d1, canvas.width, canvas.height);
+		ctx.putImageData(img1, 0, 0);
 	}
 
-
-      ctx.putImageData(img1, 0, 0);
-    }
-    
     var wasmbtn = document.getElementById('wasmbtn');
-    wasmbtn.addEventListener('click', winv);
+    wasmbtn.addEventListener('click', winvf);
   });
 
   var jsbtn = document.getElementById('jsbtn');

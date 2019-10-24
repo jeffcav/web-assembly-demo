@@ -36,42 +36,12 @@ int * EMSCRIPTEN_KEEPALIVE paint(int seed) {
 	return &data[0];
 }
 
-int* EMSCRIPTEN_KEEPALIVE winvert(int *src) {
-	int i, mask = 0xffffff00, val;
+int* EMSCRIPTEN_KEEPALIVE winvert() {
+	int i;
+	int neg = 0xffffff;
 	for (i = 0; i < HEIGHT*WIDTH; i++) {
-		data[i] = src[i];
+		data[i] = (neg - data[i]) | 0xff000000;
 		//data[i] = 0xabc123ab;
-
-		//val = (val & 0xff00ffff) | ((0x00ff0000-(val & 0x00ff0000)) & 0x00ff0000);
-		//data[i] = val;
-
-		//data[i] = data[i] + 0x1;
-		/*
-		unsigned char r,g,b,a;
-		a = (origin[i] & mask_red) >> 24;
-		b = (origin[i] & mask_green) >> 16;
-		g = (origin[i] & mask_blue) >> 8;
-		r = (origin[i] & mask_alpha);
-
-		r = 255 - r;
-		g = 255 - g;
-		b = 255 - b;
-
-		origin[i] = 0;
-
-		origin[i] |= a;
-		origin[i] <<= 8;
-
-		origin[i] |= b;
-		origin[i] <<= 8;
-
-		origin[i] |= g;
-		origin[i] <<= 8;
-
-		origin[i] |= r;
-
-		//origin[i] = mask - origin[i];
-		*/
 	}
 
 	return &data[0];
