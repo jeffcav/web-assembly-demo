@@ -65,19 +65,12 @@ function draw(img) {
   var bytes = request.response;
 
   WebAssembly.instantiate(bytes, importObject).then(results => {
-    //const p0 = results.instance.exports.getdata();
-    //const d0 = new Uint8ClampedArray(importObject.env.memory.buffer, p0, canvas.width*canvas.height*4);
-    //console.log(results.instance.exports.setdata(data));
-
-    //d0 = data;
-    //const img0 = new ImageData(d0, canvas.width, canvas.height);
+	init_pointer = results.instance.exports.getdata();
+        var init_data = new Uint8ClampedArray(importObject.env.memory.buffer, init_pointer, canvas.width * canvas.height * 4);
+        var init_img = new ImageData(init_data, canvas.width, canvas.height);
+        init_img.data.set(data);
 
 	var winvf = function() {
-		init_pointer = results.instance.exports.getdata();
-		var init_data = new Uint8ClampedArray(importObject.env.memory.buffer, init_pointer, canvas.width * canvas.height * 4);
-		var init_img = new ImageData(init_data, canvas.width, canvas.height);
-		init_img.data.set(data);
-
 		var p1 = results.instance.exports.winvert();
 		var d1 = new Uint8ClampedArray(importObject.env.memory.buffer, p1, canvas.width * canvas.height * 4);
                 var img1 = new ImageData(d1, canvas.width, canvas.height);
